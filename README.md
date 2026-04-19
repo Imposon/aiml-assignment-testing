@@ -1,85 +1,22 @@
-# Clinical Appointment No-Show Prediction System
+# Clinical Appointment No-Show Prediction & Agentic Care Coordination System
 
 ## 📌 Overview
-This project predicts the probability that a patient will miss a scheduled clinical appointment (No-Show) using traditional machine learning techniques.
+This project predicts the probability that a patient will miss a scheduled clinical appointment (No-Show) using traditional machine learning techniques, and provides an **AI Care Coordinator** to generate actionable, evidence-based intervention plans using LangGraph and Groq APIs.
 
-The system includes:
-- Data preprocessing & feature engineering
-- Model training & evaluation
-- Risk categorization
-- Interactive Streamlit-based deployment
+The single Streamlit application (`app.py`) provides both:
+1. **ML Predictions:** Identifies and visualizes probability of no-shows.
+2. **AI Care Coordinator:** Leverages RAG (Retrieval-Augmented Generation) with FAISS to analyze high-risk cohorts and recommend interventions against local health guidelines.
 
 ---
 
 ## 🎯 Problem Statement
-Missed medical appointments lead to:
-- Revenue loss
-- Inefficient scheduling
-- Wasted medical resources
-
-This system helps clinics proactively identify high-risk appointments and take preventive action.
+Missed medical appointments lead to revenue loss, inefficient scheduling, and wasted medical resources. This system helps clinics proactively identify high-risk appointments and takes preventive action through an agentic AI system that generates structured reports.
 
 ---
 
-## 📊 Dataset
-Source: Kaggle – Medical Appointment No Shows
-
-Link: https://www.kaggle.com/datasets/joniarroba/noshowappointments
-
-Key Features Used:
-- Lead time (days between booking and appointment)
-- Lead time bucket (engineered feature)
-- Age & age group
-- SMS received
-- Day of week
-- Medical history indicators (Diabetes, Hypertension, Alcoholism, Handicap)
-- Interaction features (e.g., SMS × lead time)
-
-Target Variable:
-- `No-show` (1 = No-show, 0 = Show)
-
----
-
-## 🛠 Feature Engineering
-The following engineered features were added:
-- Lead time calculation
-- Lead time bucketization
-- Age grouping
-- Weekend indicator
-- SMS–Lead Time interaction feature
-
----
-
-## 🤖 Model Used
-Random Forest Classifier
-
-Hyperparameters:
-- n_estimators = 500
-- max_depth = 12
-- min_samples_split = 10
-- class_weight = "balanced"
-
----
-
-## 📈 Model Performance
-
-| Metric        | Value |
-|---------------|-------|
-| ROC-AUC       | ~0.73 |
-| Accuracy      | ~0.61 |
-| Recall (No-Show Class) | ~0.77 |
-
-The model prioritizes recall for the No-Show class to minimize missed high-risk cases.
-
----
-
-## 🖥 System Features
-
-✔ Upload appointment CSV  
-✔ Predict no-show probability  
-✔ Risk classification (Low / Medium / High)  
-✔ Risk distribution summary  
-✔ Model feature importance visualization  
+## 🛠 Milestones Included
+- **Milestone 1:** Traditional ML pipeline with Random Forest Classifier and risk categorization.
+- **Milestone 2:** LangGraph agent featuring RAG pipeline, retrieving from CDC/WHO guidelines, generating reports via `llama-3.1-8b-instant` (via Groq), and exporting to valid PDF.
 
 ---
 
@@ -94,7 +31,7 @@ cd Clinical_No_show
 
 ### 2️⃣ Create a Virtual Environment
 
-Make sure Python 3.9 or above is installed.
+Make sure Python 3.10 or above is installed.
 ```bash
 python3 -m venv venv
 ```
@@ -113,11 +50,34 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Run the Application
+### 4️⃣ Setup Environment Variables & Build Index
+You will need a free [Groq API Key](https://console.groq.com/).
+
+Run the FAISS index builder locally once:
+```bash
+python build_faiss_index.py
+```
+This will compile guidelines into a local `faiss_index/` folder, which should be committed to GitHub.
+
+Create a `.streamlit/secrets.toml` file in your directory to store your Groq API Key:
+```toml
+GROQ_API_KEY = "gsk_xxxxxxxxxxxxxxxxx"
+```
+
+### 5️⃣ Run the Application
 ```bash
 streamlit run app.py
 ```
-The app will open in your browser at:
-```bash
-http://localhost:8501
-```
+The app will open in your browser at `http://localhost:8501`.
+
+---
+
+## ☁️ Deployment Notes (Streamlit Community Cloud)
+1. Get an API key from the Groq console.
+2. Make sure you ran `python build_faiss_index.py` locally and successfully pushed the resulting `faiss_index/` folder to your GitHub repository.
+3. Deploy the application straight from your GitHub repository onto Streamlit Community Cloud.
+4. Go to App Settings -> **Secrets** and add:
+   ```toml
+   GROQ_API_KEY = "gsk_xxxxxxx"
+   ```
+5. Deploy and restart!

@@ -1,0 +1,12 @@
+World Health Organization (WHO) and Centers for Disease Control and Prevention (CDC) guidelines for managing appointment adherence and proactive care coordination:
+
+1. Send automated SMS or voice call reminders at least 48 hours before the scheduled appointment for all high-risk patients.
+2. Offer flexible rescheduling options, including telehealth visits, for patients with long lead times (greater than 15 days) between booking and the appointment dates.
+3. Prioritize personal outreach and follow-up phone calls for patients on algorithms who did not receive an SMS confirmation.
+4. Consider implementing same-day confirmation calls for patients with a documented prior history of no-shows.
+5. Engage social workers or patient navigators for patients demonstrating multiple chronic conditions such as Hypertension and Diabetes, as they face higher barriers to access.
+6. Assess potential transportation and financial barriers when developing individual care plans.
+7. Conduct regular audits of appointment wait times and strive to reduce lead times for vulnerable demographics.
+8. Patient privacy must be strictly maintained; all interventions must fully comply with local medical and healthcare regulations.
+9. Care coordination interventions are advisory and must supplement, not replace, clinical judgment by qualified healthcare professionals.
+10. Systematically document the reasons for missed appointments to continuously improve scheduling policies and outreach programs.
